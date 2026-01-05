@@ -24,8 +24,6 @@ The database auto-import functionality is configured in `docker-compose.yml` wit
 
 ## 1. System Overview
 
-## 1. System Overview
-
 Southern Apparels ERP is a full-stack Enterprise Resource Planning system designed for garment/textile manufacturing (specifically sweater/knitwear production). The system is built for "Southern Apparels and Holdings" based in Bangladesh.
 
 ### Tech Stack

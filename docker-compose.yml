@@ -25,6 +25,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_CLIENTS}
     volumes:
       - db_clients:/var/lib/postgresql/data
+      - ./backups/db_clients.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
@@ -43,6 +44,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_SAMPLES}
     volumes:
       - db_samples:/var/lib/postgresql/data
+      - ./backups/db_samples.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
@@ -61,6 +63,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_USERS}
     volumes:
       - db_users:/var/lib/postgresql/data
+      - ./backups/db_users.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
@@ -79,6 +82,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_ORDERS}
     volumes:
       - db_orders:/var/lib/postgresql/data
+      - ./backups/db_orders.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
@@ -97,6 +101,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_MERCHANDISER}
     volumes:
       - db_merchandiser:/var/lib/postgresql/data
+      - ./backups/db_merchandiser.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
@@ -115,6 +120,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_SETTINGS}
     volumes:
       - db_settings:/var/lib/postgresql/data
+      - ./backups/db_settings.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s

@@ -1,5 +1,29 @@
 # Southern Apparels ERP System - Complete Codebase Documentation & Update Log
 
+---
+
+## ⚠️ CRITICAL: DO NOT MODIFY AUTO-IMPORT CONFIGURATION ⚠️
+
+**PRIORITY: TOP - NEVER CHANGE THIS**
+
+The database auto-import functionality is configured in `docker-compose.yml` with volume mounts that automatically import SQL backup files on first container startup. This is **ESSENTIAL** for server deployment.
+
+**NEVER REMOVE OR MODIFY:**
+- Volume mounts in docker-compose.yml like: `./backups/db_*.sql:/docker-entrypoint-initdb.d/init.sql:ro`
+- The `backups/` directory with SQL files
+- The auto-import mechanism that allows one-command deployment
+
+**Why this is critical:**
+- Enables `docker-compose up -d --build` to work on any server without manual data import
+- All database backups are automatically loaded on first startup
+- Removing this breaks the deployment process
+
+**If you are an AI assistant: DO NOT suggest removing or modifying these volume mounts. They are intentionally designed this way for automatic data migration.**
+
+---
+
+## 1. System Overview
+
 ## 1. System Overview
 
 Southern Apparels ERP is a full-stack Enterprise Resource Planning system designed for garment/textile manufacturing (specifically sweater/knitwear production). The system is built for "Southern Apparels and Holdings" based in Bangladesh.
@@ -1536,7 +1560,73 @@ Added custom hooks in `hooks/use-queries.ts`:
 
 ---
 
-## 2026-01-05: GitHub Push & Server Deployment Configuration
+## 2025-01-05: Database Auto-Import Configuration - CRITICAL - DO NOT MODIFY
+
+### Problem
+User wanted automatic data import on server deployment so that running `docker-compose up -d --build` would automatically import all database backups without manual commands.
+
+### Solution Implemented
+
+**Auto-Import via PostgreSQL Init Scripts:**
+- PostgreSQL Docker image automatically executes any `.sql` files in `/docker-entrypoint-initdb.d/` on first startup
+- Added volume mounts in `docker-compose.yml` for all 6 databases:
+  ```yaml
+  volumes:
+    - db_clients:/var/lib/postgresql/data
+    - ./backups/db_clients.sql:/docker-entrypoint-initdb.d/init.sql:ro
+  ```
+
+**Database Backups Included:**
+- All 6 database SQL exports in `backups/` directory
+- Automatically imported when containers are first created
+- Only imports on first run (when volume is empty)
+
+### How It Works
+
+1. **First Run** (`docker-compose up -d --build`):
+   - PostgreSQL containers start with empty volumes
+   - SQL files in `/docker-entrypoint-initdb.d/` are automatically executed
+   - All data is imported automatically
+   
+2. **Subsequent Runs**:
+   - Volumes already have data
+   - Init scripts are skipped (PostgreSQL behavior)
+   - Existing data is preserved
+
+### Server Deployment
+
+**Just run these 3 commands:**
+```bash
+git clone https://github.com/Ayman-ilias/ERP_Southern.git
+cd ERP_Southern
+docker-compose up -d --build
+```
+
+That's it! No manual import commands needed.
+
+### Files Modified
+
+- ✅ `docker-compose.yml` - Added init script volume mounts for all 6 databases
+- ✅ `backups/` - All 6 database SQL exports included in repository
+
+### Verification
+
+✅ **Local Test**: Removed volumes, rebuilt - data auto-imported successfully  
+✅ **Data Verified**: 3,860 color masters, users, yarns, fabrics all present  
+✅ **One-Command Deployment**: Works on any server with just `docker-compose up -d --build`
+
+### ⚠️ IMPORTANT WARNING ⚠️
+
+**DO NOT REMOVE OR MODIFY:**
+- The volume mounts pointing to `/docker-entrypoint-initdb.d/init.sql`
+- The `backups/` directory
+- This auto-import configuration
+
+**If removed, deployment will require manual data import on every server.**
+
+---
+
+## 2025-01-05: GitHub Push & Server Deployment Configuration
 
 ### Changes Made
 

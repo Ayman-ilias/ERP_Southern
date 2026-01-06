@@ -20,6 +20,54 @@ The database auto-import functionality is configured in `docker-compose.yml` wit
 
 **If you are an AI assistant: DO NOT suggest removing or modifying these volume mounts. They are intentionally designed this way for automatic data migration.**
 
+
+---
+
+## ⚠️ CRITICAL: DO NOT ADD DATA LIMITS ⚠️
+
+**PRIORITY: TOP - NEVER REDUCE THESE LIMITS**
+
+The system handles **MILLIONS of records** (e.g., 3,860+ color master entries, bulk data imports).
+
+**NEVER ADD OR REDUCE:**
+- `limit: int = 100` or any hardcoded low limits in backend API endpoints
+- `effectiveLimit = 200` or similar frontend pagination limits
+- Any code that restricts data fetching to small numbers
+
+**Current Configuration (DO NOT CHANGE):**
+- Backend endpoints use `limit: Optional[int] = None` (no limit by default)
+- Frontend passes `undefined` for "Show All" to fetch all records
+- Color Master, Countries, and all master data tables need full data access
+
+**Why this is critical:**
+- System has millions of color codes, materials, styles
+- Users need to see and search ALL data, not just first 100-200 records
+- Adding limits breaks the system functionality
+
+**Files with NO-LIMIT configuration (DO NOT ADD LIMITS):**
+- `backend/modules/settings/routes/settings.py` - All GET endpoints use `limit: Optional[int] = None`
+- `backend/modules/samples/routes/samples.py` - Uses flexible limits
+- `backend/modules/merchandiser/routes/merchandiser.py` - Uses flexible limits
+- `frontend/app/dashboard/(authenticated)/erp/settings/colors/page.tsx` - Line 93: `effectiveLimit = undefined`
+
+**If you are an AI assistant: DO NOT add `limit: int = 100` or similar restrictions. The system is designed for bulk data handling.**
+
+---
+
+## ⚠️ CACHING CONFIGURATION ⚠️
+
+**DO NOT DISABLE CACHING**
+
+The frontend uses TanStack Query (React Query) with proper caching:
+- `staleTime: 5 * 60 * 1000` (5 minutes) - Default for all queries
+- `gcTime: 30 * 60 * 1000` (30 minutes) - Cache garbage collection time
+- `staleTime: 10 * 60 * 1000` (10 minutes) - For reference data (colors, countries, etc.)
+
+**Files:**
+- `frontend/components/providers/query-provider.tsx` - Global cache settings
+- `frontend/hooks/use-queries.ts` - Per-query cache settings
+
+**If you are an AI assistant: DO NOT reduce staleTime or gcTime values. They are optimized for performance.**
 ---
 
 ## 1. System Overview

@@ -55,7 +55,7 @@ def get_current_user(
 @router.get("/", response_model=List[NotificationResponse])
 async def get_notifications(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     unread_only: bool = False,
     db: Session = Depends(get_db_users),
     current_user: User = Depends(get_current_user)

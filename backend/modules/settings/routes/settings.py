@@ -104,7 +104,7 @@ def create_branch(data: BranchCreate, db: Session = Depends(get_db_settings)):
 
 
 @router.get("/branches", response_model=List[BranchResponse])
-def get_branches(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_branches(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all branches"""
     query = db.query(Branch)
     if is_active is not None:
@@ -187,7 +187,7 @@ def create_department(data: DepartmentCreate, db: Session = Depends(get_db_setti
 
 
 @router.get("/departments", response_model=List[DepartmentResponse])
-def get_departments(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_departments(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all departments"""
     query = db.query(Department)
     if is_active is not None:
@@ -270,7 +270,7 @@ def create_role(data: RoleCreate, db: Session = Depends(get_db_settings)):
 
 
 @router.get("/roles", response_model=List[RoleResponse])
-def get_roles(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_roles(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all roles"""
     query = db.query(Role)
     if is_active is not None:
@@ -457,7 +457,7 @@ def create_currency(data: CurrencyCreate, db: Session = Depends(get_db_settings)
 
 
 @router.get("/currencies", response_model=List[CurrencyResponse])
-def get_currencies(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_currencies(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all currencies"""
     query = db.query(Currency)
     if is_active is not None:
@@ -540,7 +540,7 @@ def create_tax(data: TaxCreate, db: Session = Depends(get_db_settings)):
 
 
 @router.get("/taxes", response_model=List[TaxResponse])
-def get_taxes(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_taxes(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all taxes"""
     query = db.query(Tax)
     if is_active is not None:
@@ -623,7 +623,7 @@ def create_uom_category(data: UoMCategoryCreate, db: Session = Depends(get_db_se
 
 
 @router.get("/uom-categories", response_model=List[UoMCategoryResponse])
-def get_uom_categories(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_uom_categories(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all UoM categories"""
     query = db.query(UoMCategory)
     if is_active is not None:
@@ -700,7 +700,7 @@ def create_uom(data: UoMCreate, db: Session = Depends(get_db_settings)):
 
 
 @router.get("/uom", response_model=List[UoMResponse])
-def get_uoms(skip: int = 0, limit: int = 100, category_id: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_uoms(skip: int = 0, limit: Optional[int] = None, category_id: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all UoMs"""
     query = db.query(UoM)
     if category_id:
@@ -1124,7 +1124,7 @@ def create_country(data: CountryCreate, db: Session = Depends(get_db_settings)):
 
 
 @router.get("/countries", response_model=List[CountryResponse])
-def get_countries(skip: int = 0, limit: int = 200, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_countries(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all countries"""
     query = db.query(Country)
     if is_active is not None:
@@ -1207,7 +1207,7 @@ def create_city(data: CityCreate, db: Session = Depends(get_db_settings)):
 
 
 @router.get("/cities", response_model=List[CityResponse])
-def get_cities(skip: int = 0, limit: int = 100, country_id: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_cities(skip: int = 0, limit: Optional[int] = None, country_id: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all cities"""
     query = db.query(City)
     if country_id:
@@ -1292,7 +1292,7 @@ def create_port(data: PortCreate, db: Session = Depends(get_db_settings)):
 
 
 @router.get("/ports", response_model=List[PortResponse])
-def get_ports(skip: int = 0, limit: int = 100, country_id: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_ports(skip: int = 0, limit: Optional[int] = None, country_id: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all ports"""
     query = db.query(Port)
     if country_id:
@@ -1377,7 +1377,7 @@ def create_warehouse(data: WarehouseCreate, db: Session = Depends(get_db_setting
 
 
 @router.get("/warehouses", response_model=List[WarehouseResponse])
-def get_warehouses(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_warehouses(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all warehouses"""
     query = db.query(Warehouse)
     if is_active is not None:
@@ -1460,7 +1460,7 @@ def create_document_numbering(data: DocumentNumberingCreate, db: Session = Depen
 
 
 @router.get("/document-numbering", response_model=List[DocumentNumberingResponse])
-def get_document_numberings(skip: int = 0, limit: int = 100, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_document_numberings(skip: int = 0, limit: Optional[int] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all document numbering configs"""
     query = db.query(DocumentNumbering)
     if is_active is not None:
@@ -1588,7 +1588,7 @@ def create_fiscal_year(data: FiscalYearCreate, db: Session = Depends(get_db_sett
 
 
 @router.get("/fiscal-years", response_model=List[FiscalYearResponse])
-def get_fiscal_years(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_settings)):
+def get_fiscal_years(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_settings)):
     """Get all fiscal years"""
     return db.query(FiscalYear).order_by(FiscalYear.start_date.desc()).offset(skip).limit(limit).all()
 
@@ -1669,7 +1669,7 @@ def create_per_minute_value(data: PerMinuteValueCreate, db: Session = Depends(ge
 
 
 @router.get("/per-minute-value", response_model=List[PerMinuteValueResponse])
-def get_per_minute_values(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_settings)):
+def get_per_minute_values(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_settings)):
     """Get all per minute values"""
     return db.query(PerMinuteValue).order_by(PerMinuteValue.effective_from.desc()).offset(skip).limit(limit).all()
 
@@ -1766,7 +1766,7 @@ def create_chart_of_accounts(data: ChartOfAccountsCreate, db: Session = Depends(
 
 
 @router.get("/chart-of-accounts", response_model=List[ChartOfAccountsResponse])
-def get_chart_of_accounts(skip: int = 0, limit: int = 200, account_type: Optional[str] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
+def get_chart_of_accounts(skip: int = 0, limit: Optional[int] = None, account_type: Optional[str] = None, is_active: Optional[bool] = None, db: Session = Depends(get_db_settings)):
     """Get all chart of accounts entries"""
     query = db.query(ChartOfAccounts)
     if account_type:

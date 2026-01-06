@@ -90,9 +90,9 @@ export default function ColorsPage() {
   }, [masterSearch]);
   
   // Calculate effective limit and code type for Color Masters query
-  const effectiveLimit = masterRowLimit === "all" ? (debouncedSearch ? 1000 : 200) : masterRowLimit;
+  const effectiveLimit = masterRowLimit === "all" ? undefined : masterRowLimit;
   const effectiveCodeType = masterCodeType !== "all" ? masterCodeType : undefined;
-  const skip = masterPage * (typeof effectiveLimit === "number" ? effectiveLimit : 200);
+  const skip = masterPage * (typeof effectiveLimit === "number" ? effectiveLimit : 0);
   
   // Color Masters query - only enabled when tab is active
   const { data: mastersData, isLoading: masterLoading } = useColorMasters(

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from core.database import get_db_users
 from core import get_password_hash
 from core.logging import setup_logging
@@ -56,7 +56,7 @@ def create_user(user_data: UserCreate, db: Session = Depends(get_db_users)):
 
 
 @router.get("/", response_model=List[UserResponse])
-def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_users)):
+def get_users(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_users)):
     """Get all users"""
     users = db.query(User).order_by(User.id.desc()).offset(skip).limit(limit).all()
     return users

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from core.database import get_db_clients
 from modules.clients.models.client import ContactPerson
 from modules.clients.schemas.buyer import ContactPersonCreate, ContactPersonResponse
@@ -27,7 +27,7 @@ def create_contact(contact_data: ContactPersonCreate, db: Session = Depends(get_
 
 
 @router.get("/", response_model=List[ContactPersonResponse])
-def get_contacts(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_clients)):
+def get_contacts(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_clients)):
     """Get all contact persons"""
     contacts = db.query(ContactPerson).order_by(ContactPerson.id.desc()).offset(skip).limit(limit).all()
     return contacts

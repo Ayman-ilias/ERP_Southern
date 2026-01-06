@@ -118,7 +118,7 @@ async def create_yarn_detail(
 @router.get("/yarn", response_model=List[YarnDetailResponse])
 async def get_all_yarn_details(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all yarn details"""
@@ -209,7 +209,7 @@ async def create_fabric_detail(
 @router.get("/fabric", response_model=List[FabricDetailResponse])
 async def get_all_fabric_details(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all fabric details"""
@@ -300,7 +300,7 @@ async def create_trims_detail(
 @router.get("/trims", response_model=List[TrimsDetailResponse])
 async def get_all_trims_details(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all trims details"""
@@ -391,7 +391,7 @@ async def create_accessories_detail(
 @router.get("/accessories", response_model=List[AccessoriesDetailResponse])
 async def get_all_accessories_details(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all accessories details"""
@@ -482,7 +482,7 @@ async def create_finished_good_detail(
 @router.get("/finished-good", response_model=List[FinishedGoodDetailResponse])
 async def get_all_finished_good_details(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all finished good details"""
@@ -573,7 +573,7 @@ async def create_packing_good_detail(
 @router.get("/packing-good", response_model=List[PackingGoodDetailResponse])
 async def get_all_packing_good_details(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all packing good details"""
@@ -664,7 +664,7 @@ async def create_size_chart(
 @router.get("/size-chart", response_model=List[SizeChartResponse])
 async def get_all_size_charts(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all size charts"""
@@ -840,7 +840,7 @@ async def sync_samples_to_samples_db(db: Session = Depends(get_db_merchandiser))
 @router.get("/sample-primary", response_model=List[SamplePrimaryInfoResponse])
 async def get_all_sample_primary_info(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all sample primary info, sorted by created_at descending (newest first)"""
@@ -1019,7 +1019,7 @@ async def create_sample_tna(
 async def get_all_sample_tna(
     sample_id: Optional[str] = None,
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all sample TNA records, optionally filtered by sample_id"""
@@ -1099,7 +1099,7 @@ async def delete_sample_tna(
 async def get_all_sample_status(
     sample_id: Optional[str] = None,
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all sample status records from merchandiser database, with fallback to samples database"""
@@ -1523,7 +1523,7 @@ async def create_style(
 @router.get("/style-creation", response_model=List[StyleCreationResponse])
 async def get_all_styles(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all style creations"""
@@ -1614,7 +1614,7 @@ async def create_style_basic_info(
 @router.get("/style-basic-info", response_model=List[StyleBasicInfoResponse])
 async def get_all_style_basic_info(
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all style basic info"""
@@ -1713,7 +1713,7 @@ async def create_style_material_link(
 async def get_all_style_material_links(
     style_id: Optional[str] = None,
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all style material links"""
@@ -1816,7 +1816,7 @@ async def create_style_color(
 async def get_all_style_colors(
     style_id: Optional[str] = None,
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all style colors"""
@@ -1905,7 +1905,7 @@ async def create_style_size(
 async def get_all_style_sizes(
     style_id: Optional[str] = None,
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all style sizes"""
@@ -2067,7 +2067,7 @@ async def create_style_variant(
 async def get_all_style_variants(
     style_id: Optional[str] = None,
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all style variants"""
@@ -2189,7 +2189,7 @@ async def create_cm_calculation(
 async def get_all_cm_calculations(
     style_id: Optional[str] = None,
     skip: int = 0,
-    limit: int = 100,
+    limit: Optional[int] = None,
     db: Session = Depends(get_db_merchandiser)
 ):
     """Get all CM calculations"""

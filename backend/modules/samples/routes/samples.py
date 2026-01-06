@@ -1375,7 +1375,7 @@ def create_tna(tna_data: SampleTNACreate, db: Session = Depends(get_db_samples))
 
 
 @router.get("/tna", response_model=List[SampleTNAResponse])
-def get_tna_records(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_samples)):
+def get_tna_records(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_samples)):
     """[DEPRECATED] Get all TNA records - use /sample-tna instead"""
     return db.query(SampleTNA).order_by(SampleTNA.id.desc()).offset(skip).limit(limit).all()
 
@@ -1400,7 +1400,7 @@ def create_plan(plan_data: SamplePlanCreate, db: Session = Depends(get_db_sample
 
 
 @router.get("/plan", response_model=List[SamplePlanResponse])
-def get_plan_records(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_samples)):
+def get_plan_records(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_samples)):
     """[DEPRECATED] Get all Plan records - use /sample-plans instead"""
     return db.query(SamplePlan).order_by(SamplePlan.id.desc()).offset(skip).limit(limit).all()
 
@@ -1417,14 +1417,14 @@ def create_operation_type(op_data: OperationTypeCreate, db: Session = Depends(ge
 
 
 @router.get("/operations-master", response_model=List[OperationTypeResponse])
-def get_operation_types(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_samples)):
+def get_operation_types(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_samples)):
     """[DEPRECATED] Get all operation types - use /manufacturing-operations instead"""
     return db.query(OperationType).order_by(OperationType.id.desc()).offset(skip).limit(limit).all()
 
 
 # Legacy SMV endpoints
 @router.get("/smv", response_model=List[SMVCalculationResponse])
-def get_smv_list(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_samples)):
+def get_smv_list(skip: int = 0, limit: Optional[int] = None, db: Session = Depends(get_db_samples)):
     """[DEPRECATED] Get all SMV calculations - use /smv-calculations instead"""
     return db.query(SMVCalculation).order_by(SMVCalculation.id.desc()).offset(skip).limit(limit).all()
 
